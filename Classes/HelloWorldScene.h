@@ -32,6 +32,8 @@ class HelloWorld : public cocos2d::Scene
 public:
     static cocos2d::Scene* createScene();
 
+    cocos2d::Sprite3D* node;
+
     virtual bool init();
     
     // a selector callback

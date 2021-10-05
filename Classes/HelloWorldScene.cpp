@@ -48,6 +48,39 @@ bool HelloWorld::init()
         return false;
     }
 
+    node = Sprite3D::create("boss1.obj");
+    node->setScale(5);
+    node->setTexture("boss.png");
+    node->setPositionNormalized(Vec2(.5f, .5f));
+    node->setRotation3D(Vec3(90.0f, 0.0f, 0.0f));
+    node->setForceDepthWrite(true);
+    addChild(node);
+
+    //Listener
+    auto _lis = EventListenerTouchOneByOne::create();
+    _lis->onTouchBegan = [](Touch* t, Event* e) {
+        return true;
+    };
+
+    _lis->onTouchMoved = [this](Touch* t, Event* e) {
+            float dx = t->getDelta().x;
+            float dy = t->getDelta().y;
+
+            Vec3 rot = node->getRotation3D();
+            rot.y += dx;
+            rot.x += dy;
+            node->setRotation3D(rot);
+
+            //Vec3 worldPos;
+            //_camNode->getNodeToWorldTransform().getTranslation(&worldPos);
+
+            //Camera::getDefaultCamera()->setPosition3D(worldPos);
+            //Camera::getDefaultCamera()->lookAt(_camControlNode->getPosition3D());
+        };
+
+    Director::getInstance()->getEventDispatcher()->addEventListenerWithSceneGraphPriority(_lis, this);
+
+    /*
     auto visibleSize = Director::getInstance()->getVisibleSize();
     Vec2 origin = Director::getInstance()->getVisibleOrigin();
 
@@ -113,7 +146,7 @@ bool HelloWorld::init()
 
         // add the sprite as a child to this layer
         this->addChild(sprite, 0);
-    }
+    }*/
     return true;
 }
 
