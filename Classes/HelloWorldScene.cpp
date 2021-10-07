@@ -56,6 +56,12 @@ bool HelloWorld::init()
     node->setForceDepthWrite(true);
     addChild(node);
 
+    auto tempNode = Sprite3D::create("boss1.obj");
+    tempNode->setTexture("boss.png");
+    tempNode->setScale(0.5);
+    tempNode->setPositionNormalized(Vec2(.4f, .4f));
+    node->addChild(tempNode);
+
     //Listener
     auto _lis = EventListenerTouchOneByOne::create();
     _lis->onTouchBegan = [](Touch* t, Event* e) {
